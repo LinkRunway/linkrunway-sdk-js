@@ -1,0 +1,10 @@
+#!/bin/sh
+# Keep repository history concise and free of tool attribution.
+awk '
+  /^#/ || /^[[:space:]]*$/ { next }
+  { count++; if (length($0) > 72 || tolower($0) ~ /claud|codex|co-authored-by/) bad = 1 }
+  END { if (count != 1 || bad) exit 1 }
+' "$1" || {
+  echo 'Use one simple commit subject, at most 72 characters, without tool attribution.' >&2
+  exit 1
+}
