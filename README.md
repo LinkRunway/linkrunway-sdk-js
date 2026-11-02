@@ -1,8 +1,43 @@
-# JavaScript SDK (`@linkrunway/sdk`)
+# LinkRunway SDK for JavaScript and Node.js
+
+[Website](https://linkrunway.com) · [Developer guide](https://linkrunway.com/resources/developers) · [Releases](https://github.com/LinkRunway/linkrunway-sdk-js/releases) · [Issues](https://github.com/LinkRunway/linkrunway-sdk-js/issues)
+
+**Published version: [0.2.0](https://github.com/LinkRunway/linkrunway-sdk-js/releases/tag/0.2.0) · [MIT license](LICENSE)**
+
+Install from the versioned GitHub release archive below; npm registry publication is not required. The package declares Node.js 18+ and supports browsers with the APIs described in this guide.
+
+The default branch may include documentation or source changes that have not been released. Use a published version for an application dependency.
+
+<details>
+<summary>Guide contents</summary>
+
+- [Install](#install)
+- [Setup](#setup)
+- [Consent and stored state](#consent-and-stored-state)
+- [Links and attribution](#links-and-attribution)
+- [Events and the offline queue](#events-and-the-offline-queue)
+- [Shares and referral codes](#shares-and-referral-codes)
+- [Install identity and first-launch match](#install-identity-and-first-launch-match)
+- [Device attestation](#device-attestation)
+- [Ad-network claims](#ad-network-claims)
+- [Configuration and server-side helpers](#configuration-and-server-side-helpers)
+- [Privacy notes](#privacy-notes)
+- [Verified and not verified](#verified-and-not-verified)
+- [Backend link management](#backend-link-management)
+- [Forward links from a website server](#forward-links-from-a-website-server)
+- [Contributing and support](#contributing-and-support)
+
+</details>
 
 A typed client for browsers, Node.js backends, and any other runtime with `fetch`. It is the core that the [React Native and Expo packages](https://github.com/LinkRunway/linkrunway-sdk-react-native#readme) build on. It contains no native code and reads nothing from the device: no advertising ID, no fingerprint, no clipboard.
 
-Install it with `npm install https://github.com/LinkRunway/linkrunway-sdk-js/releases/download/0.2.0/linkrunway-sdk-0.2.0.tgz`. The package ships ES module and CommonJS builds with type declarations and has no dependencies.
+## Install
+
+```sh
+npm install https://github.com/LinkRunway/linkrunway-sdk-js/releases/download/0.2.0/linkrunway-sdk-0.2.0.tgz
+```
+
+The package ships ES module and CommonJS builds with type declarations and has no dependencies.
 
 ## Setup
 
@@ -201,3 +236,11 @@ return forwardLinkRunway(request, {
 ```
 
 It preserves privacy signals, omits cookies/authorization, and returns redirects without following them. Keep routing dynamic and prevent CDN caching. Credential rotation invalidates the previous value immediately. The [Next.js/Vercel example](https://github.com/LinkRunway/linkrunway-sdk-js/tree/main/examples/next-website) includes the complete hosting adapter and association-file handlers. Previously published JavaScript 0.1.0 artifacts do not contain this helper; use 0.2.0 or later.
+
+## Contributing and support
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for local development checks and the pull request process. See the [changelog](CHANGELOG.md) and [release history](https://github.com/LinkRunway/linkrunway-sdk-js/releases) when upgrading. The [other LinkRunway SDKs](https://github.com/LinkRunway#sdk-repositories) are maintained in separate repositories.
+
+For account, billing, or private integration questions, email **support@linkrunway.com**. Report reproducible SDK bugs in this repository with a redacted reproduction. Follow [SECURITY.md](SECURITY.md) for vulnerabilities and [SUPPORT.md](SUPPORT.md) for help channels. Participation follows our [code of conduct](CODE_OF_CONDUCT.md).
+
+The SDK code is distributed under [MIT](LICENSE). Hosted LinkRunway usage is governed by its [Terms of Service](https://linkrunway.com/terms) and [Privacy Policy](https://linkrunway.com/privacy). Community guidance is also available in the [organization repository](https://github.com/LinkRunway/.github/blob/main/README.md).
