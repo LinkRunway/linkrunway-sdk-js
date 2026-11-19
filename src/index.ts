@@ -1,3 +1,4 @@
+export { isRootLinkPath } from './root-link';
 import type {
   ClaimResult,
   ClaimRetry,
@@ -27,7 +28,7 @@ export { storageKey } from './state';
 export { uuid } from './id';
 export { parseUrl, type ParsedUrl } from './url';
 /** Sent by wrappers in the user agent, as `LinkRunwaySDK/<version> <platform>`. */
-export const SDK_VERSION = '0.2.0';
+export const SDK_VERSION = '0.3.0';
 export class LinkRunway {
   private readonly session: Session;
   private readonly transport: Transport;

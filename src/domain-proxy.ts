@@ -1,8 +1,11 @@
+import { isRootLinkPath } from './root-link';
 export type DomainProxyOptions = {
   endpoint: string;
   token: string;
   /** Obtain this from your trusted hosting platform, never an unchecked request header. */
   clientIp: string;
+  /** Opt in only for root paths your website router has assigned to LinkRunway. */
+  rootLinks?: boolean;
   country?: string;
   fetch?: typeof fetch;
 };
@@ -56,7 +59,8 @@ export async function forwardLinkRunway(
   if (
     !['GET', 'HEAD'].includes(request.method) ||
     (!associationPaths.has(original.pathname) &&
-      !/^\/(l|r)\/[A-Za-z0-9_-]{3,60}$/.test(original.pathname))
+      !/^\/(l|r)\/[A-Za-z0-9_-]{3,60}$/.test(original.pathname) &&
+      !(options.rootLinks && isRootLinkPath(original.pathname)))
   )
     return new Response('This is not a LinkRunway forwarding route', { status: 404 });
   const headers = new Headers();
@@ -80,6 +84,7 @@ export async function forwardLinkRunway(
         method: request.method,
         headers,
         redirect: 'manual',
+        cache: 'no-store',
         signal: controller.signal,
       },
     );

@@ -1,6 +1,6 @@
 {
   "name": "@linkrunway/sdk",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "LinkRunway SDK for JavaScript and Node.js.",
   "license": "MIT",
   "author": "Kimeur Labs, LLC <support@linkrunway.com>",

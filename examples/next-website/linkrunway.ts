@@ -18,6 +18,7 @@ export async function forward(request: Request) {
     return await forwardLinkRunway(request, {
       endpoint,
       token,
+      rootLinks: process.env.LINKRUNWAY_ROOT_LINKS === 'true',
       clientIp,
       country: request.headers.get('x-vercel-ip-country') ?? undefined,
     });

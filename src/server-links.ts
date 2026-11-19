@@ -1,7 +1,6 @@
 import { call, type Transport } from './transport';
 
-export type ServerLinkInput = {
-  key: string;
+type LinkFields = {
   title: string;
   url: string;
   domainId?: string | null;
@@ -16,15 +15,19 @@ export type ServerLinkInput = {
   metadata?: Record<string, string | number | boolean | null>;
   expiresAt?: string | null;
 };
-export type ServerLink = ServerLinkInput & {
+export type ServerLinkInput = LinkFields &
+  ({ key: string; operationId?: string } | { key?: string; operationId: string });
+export type ServerLink = LinkFields & {
+  key: string;
   id: string;
   workspaceId: string;
   shortUrl: string;
+  impressionUrl?: string;
   archived: boolean;
   createdAt: string;
   updatedAt: string;
 };
-export type ServerLinkUpdate = Partial<ServerLinkInput> & { archived?: boolean };
+export type ServerLinkUpdate = Partial<LinkFields & { key: string }> & { archived?: boolean };
 
 /** Backend link management. Never ship this client or its server key in a mobile app or website. */
 export class LinkRunwayServer {
@@ -69,7 +72,9 @@ export class LinkRunwayServer {
     return (await call<ServerLink>(this.transport, 'GET', `server/links/${encodeURIComponent(id)}`))
       .data;
   }
-  async listLinks(query: { page?: number; limit?: number; search?: string } = {}) {
+  async listLinks(
+    query: { page?: number; limit?: number; search?: string; operationId?: string } = {},
+  ) {
     const params = new URLSearchParams(
       Object.entries(query).map(([key, value]) => [key, String(value)]),
     );

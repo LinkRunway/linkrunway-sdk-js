@@ -2,7 +2,7 @@
 
 [Website](https://linkrunway.com) · [Developer guide](https://linkrunway.com/resources/developers) · [Releases](https://github.com/LinkRunway/linkrunway-sdk-js/releases) · [Issues](https://github.com/LinkRunway/linkrunway-sdk-js/issues)
 
-**Published version: [0.2.0](https://github.com/LinkRunway/linkrunway-sdk-js/releases/tag/0.2.0) · [MIT license](LICENSE)**
+**Published version: [0.3.0](https://github.com/LinkRunway/linkrunway-sdk-js/releases/tag/0.3.0) · [MIT license](LICENSE)**
 
 Install from the versioned GitHub release archive below; npm registry publication is not required. The package declares Node.js 18+ and supports browsers with the APIs described in this guide.
 
@@ -34,7 +34,7 @@ A typed client for browsers, Node.js backends, and any other runtime with `fetch
 ## Install
 
 ```sh
-npm install https://github.com/LinkRunway/linkrunway-sdk-js/releases/download/0.2.0/linkrunway-sdk-0.2.0.tgz
+npm install https://github.com/LinkRunway/linkrunway-sdk-js/releases/download/0.3.0/linkrunway-sdk-0.3.0.tgz
 ```
 
 The package ships ES module and CommonJS builds with type declarations and has no dependencies.
@@ -216,7 +216,7 @@ const invite = await links.createLink({
 });
 ```
 
-Use `listLinks({ page, limit, search })`, `getLink(id)` and `updateLink(id, changes)` for management. The server-only client rejects publishable keys, browser/worker environments and non-HTTPS endpoints except loopback development. It uses the existing bounded transport retries. Keep the server key out of websites and native apps: those call your authenticated backend to request a new share link.
+Use `listLinks({ page, limit, search, operationId })`, `getLink(id)` and `updateLink(id, changes)` for management. The server-only client rejects publishable keys, browser/worker environments and non-HTTPS endpoints except loopback development. It uses the existing bounded transport retries. Keep the server key out of websites and native apps: those call your authenticated backend to request a new share link.
 
 `createLink` requires the caller's stable key. The API returns the existing link with `duplicate: true` for identical content and HTTP 409 for conflicting content or an archived key. This deduplication is atomic within the workspace; retries do not consume another allowance. Verified domains and active partners must belong to that workspace. `updateLink` accepts partial link fields plus `archived`; omissions stay unchanged. See [migration and server contracts](https://linkrunway.com/resources/developers).
 

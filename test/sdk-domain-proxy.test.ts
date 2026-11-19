@@ -89,3 +89,20 @@ it('rejects browser secrets, insecure endpoints and combined IP header values', 
   vi.stubGlobal('window', {});
   await expect(forwardLinkRunway(request, options)).rejects.toThrow('website server');
 });
+it('permits a root link only when the site explicitly delegates it and preserves reserved routes', async () => {
+  const fetcher = vi.fn(
+    async () =>
+      new Response(null, { status: 302, headers: { location: 'https://merchant.example' } }),
+  );
+  const get = (path: string, rootLinks = false) =>
+    forwardLinkRunway(new Request('https://website.example.com' + path), {
+      ...options,
+      rootLinks,
+      fetch: fetcher,
+    });
+  expect((await get('/AB3FG')).status).toBe(404);
+  expect((await get('/AB3FG', true)).status).toBe(302);
+  for (const path of ['/health', '/admin', '/v1/links', '/docs'])
+    expect((await get(path, true)).status).toBe(404);
+  expect(fetcher).toHaveBeenCalledTimes(1);
+});

@@ -15,6 +15,8 @@ export type EventInput = {
   type: EventType;
   name?: string;
   clickToken?: string;
+  /** Server keys only: the externalId of a visit reported to /v1/server/clicks. */
+  clickExternalId?: string;
   externalUserId?: string;
   /** Minor units (cents). Only purchases, subscriptions and refunds carry an amount. */
   amount: number;
